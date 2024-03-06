@@ -21,11 +21,14 @@ private const val ARG_PARAM2 = "param2"
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
 
+    private var playerScore = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        playerScore = 0
 
         binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
@@ -35,10 +38,30 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.buttonStart.setOnClickListener{
-            val playerName = binding.txtName.text.toString()
-            val action = MainFragmentDirections.actionMainFragmentToGameFragment(playerName)
-            Navigation.findNavController(it).navigate(action)
+        playerScore = 0
+        var number1 = (0..100).random()
+        var number2 = (0..100).random()
+
+        binding.txtQuestion.text = "$number1 + $number2"
+
+        binding.buttonAnswer.setOnClickListener{
+//            val playerName = binding.txtName.text.toString()
+//            val action = MainFragmentDirections.actionMainFragmentToGameFragment(playerName)
+//            Navigation.findNavController(it).navigate(action)
+
+            var playerAnswer = binding.txtAnswer.text.toString()
+
+            if(playerAnswer.toInt() == (number1+number2)){
+                playerScore += 1
+                number1 = (0..100).random()
+                number2 = (0..100).random()
+                binding.txtQuestion.text = "$number1 + $number2"
+                binding.txtAnswer.setText("")
+            }
+            else{
+                val action = MainFragmentDirections.actionMainFragmentToGameFragment(playerScore.toString())
+                Navigation.findNavController(it).navigate(action)
+            }
         }
     }
 }
