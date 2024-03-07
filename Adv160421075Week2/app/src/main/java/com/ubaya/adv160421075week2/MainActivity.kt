@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.ubaya.adv160421075week2.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +20,8 @@ class MainActivity : AppCompatActivity() {
 
         navController = (supportFragmentManager.findFragmentById(R.id.navigationHost) as NavHostFragment).navController
         NavigationUI.setupActionBarWithNavController(this, navController)
+
+        binding.bottomNav.setupWithNavController(navController)
 
 
 //        setContentView(R.layout.activity_main)
