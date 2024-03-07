@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.navigation.Navigation
 import com.ubaya.adv160421075week2.databinding.FragmentMainBinding
 
@@ -23,6 +24,7 @@ class MainFragment : Fragment() {
 
     private var playerScore = 0
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,6 +40,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         playerScore = 0
         var number1 = (0..100).random()
         var number2 = (0..100).random()
@@ -62,6 +65,11 @@ class MainFragment : Fragment() {
                 val action = MainFragmentDirections.actionMainFragmentToGameFragment(playerScore.toString())
                 Navigation.findNavController(it).navigate(action)
             }
+        }
+
+        binding.buttonSetting.setOnClickListener{
+            val action = MainFragmentDirections.actionItemHomeToOptionFragment()
+            Navigation.findNavController(it).navigate(action)
         }
     }
 }
